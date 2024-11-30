@@ -1,0 +1,129 @@
+/* Centering the container horizontally and vertically */
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+/* Search input styles */
+.search-input {
+    padding: 10px;
+    width: 400px;
+    height: 50px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    font-size: 16px;
+}
+
+.search-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.25);
+}
+
+/* Search button styles */
+.search-button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Popup container and individual popup styles */
+.popups-container {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.popup {
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 200px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.popup-content {
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.popup h4 {
+    font-size: 16px;
+    margin: 0;
+}
+
+.popup p {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Body background styling */
+body {
+    background: repeating-linear-gradient(
+      45deg,
+      #f0f0f0, 
+      #f0f0f0 10px,
+      #d1d1d1 10px,
+      #d1d1d1 20px
+    );
+    margin: 0;
+    height: 100vh;
+}
+
+.search-container {
+    position: relative;
+    width: 100%;
+}
+
+.popups-container {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    display: block;
+}
+
+.popup {
+    position: absolute; /* Position absolute to allow it to move around */
+    width: 200px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    cursor: move; /* Indicates that the popup is draggable */
+    z-index: 1000;
+    transition: all 0.2s ease;
+}
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.popup-content {
+    font-size: 12px;
+}
+
+.close-btn {
+    font-size: 12px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.popup:hover {
+    background-color: #f9f9f9;
+}
