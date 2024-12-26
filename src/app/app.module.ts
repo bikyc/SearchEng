@@ -8,12 +8,14 @@ import { FormsModule } from '@angular/forms';
 import { SearchBoxService } from './Services/Searchbox.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ListResultPageComponent } from './list-result-page/list-result-page.component';
+import { PreviewComponent } from './preview/preview.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchBoxComponent,
-    ListResultPageComponent
+    ListResultPageComponent,
+    PreviewComponent
   ],
   imports: [
     BrowserModule,

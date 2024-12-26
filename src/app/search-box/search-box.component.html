@@ -1,26 +1,33 @@
-<div class="center-container">
+<div [ngClass]="{'center-container': !searchPerformed, 'top-container': searchPerformed}">
     <form class="search-form" (ngSubmit)="performSearch($event)">
-        <div class="search-container">
-            <input [(ngModel)]="searchText" name="searchText" class="search-input" type="text" placeholder="Search..."
+        <div [ngClass]="{'search-container': true, 'search-container-small': searchPerformed}">
+            <input [(ngModel)]="searchText" name="searchText" [ngClass]="{'search-input': true, 'search-input-small': searchPerformed}" type="text" placeholder="Search..."
                 required />
             <button type="submit" class="search-button">
                 <i class="fas fa-search"></i>
             </button>
+            <button type="button" class="clear-button" *ngIf="searchText" (click)="clearSearch()">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
     </form>
-    <div class="popups-container">
-        <div *ngFor="let result of searchResults; let i = index" 
-             class="popup" 
-             [ngStyle]="getPopupStyle(i)"
-             [attr.data-index]="i"
-             (mousedown)="onMouseDown($event, i)">
-            <div class="popup-header">
-                <h4>{{ result.title }}</h4>
-                <button class="close-btn" (click)="closePopup(i)">X</button>
-            </div>
-            <div class="popup-content">
-                <p>{{ result.snippet }}</p>
-            </div>
-        </div>
+</div>
+
+<div class="main-content">
+    <!-- Search Results List -->
+    <div *ngIf="searchResults && searchResults.length > 0" class="results-container">
+        <p *ngIf="suggestion">Did you mean: <strong>{{ suggestion }}</strong>?</p>
+        <ul class="results-list">
+            <li *ngFor="let result of searchResults" class="result-item" (click)="showPreview(result)">
+                <h3><a href="javascript:void(0)">{{ result.title }}</a></h3>
+                <p [innerHTML]="result.snippet"></p>
+                <p class="result-timestamp"><small>Last updated: {{ result.timestamp | date }}</small></p>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Preview of the selected result -->
+    <div *ngIf="selectedResult" class="preview-container">
+        <app-preview [result]="selectedResult"></app-preview>
     </div>
 </div>

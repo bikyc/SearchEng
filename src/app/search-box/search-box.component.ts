@@ -10,14 +10,15 @@ import { Router } from '@angular/router';
 export class SearchBoxComponent implements OnInit {
   public searchText: string = '';
   searchResults: any[] = [];
-  dragIndex: number | null = null;  // Track the index of the dragged popup
-  dragOffsetX: number = 0;
-  dragOffsetY: number = 0;
+  totalHits: number = 0;
+  suggestion: string = '';
+  searchPerformed: boolean = false;
+  selectedResult: any = null;
+
   constructor(private _searchBoxService: SearchBoxService,
     private router: Router,
     private elRef: ElementRef
   ) { }
-
 
   // Array of colors
   colors: string[] = ["#ff5733", "#33ff57", "#3357ff", "#f4c2c2", "#ffcc00", "#6a0dad"];
@@ -35,18 +36,21 @@ export class SearchBoxComponent implements OnInit {
     this.changeBackgroundColor(); // Initial color change
     setInterval(() => this.changeBackgroundColor(), 30000); // Change every 30 seconds
   }
+
   performSearch(event: Event): void {
     event.preventDefault();
     if (this.searchText.trim()) {
       this._searchBoxService.searchArticles(this.searchText).subscribe(
         (response: any) => {
-          this.searchResults = response.query.search;
-          // this._searchBoxService.setResults(this.searchResults); // Store results in the service
-          console.log(this.searchResults)
-          //this.router.navigate(['/results']); // Navigate to results component
+          this.totalHits = response.totalHits;
+          this.suggestion = response.suggestion;
+          this.searchResults = response.results;  // Update to use 'results' from the response
+          this.searchPerformed = true;  // Set searchPerformed to true after search
+          this.selectedResult = this.searchResults[0];  // Set the first result as the selected result
+          console.log(this.searchResults);
         },
         (error) => {
-          console.error('Error fetching Wikipedia data:', error);
+          console.error('Error fetching data:', error);
         }
       );
     } else {
@@ -54,43 +58,18 @@ export class SearchBoxComponent implements OnInit {
     }
   }
 
-  getPopupStyle(index: number) {
-    if (this.dragIndex === index) {
-      return {
-        top: `${this.dragOffsetY}px`,
-        left: `${this.dragOffsetX}px`
-      };
-    }
-    return {};
+  showPreview(result: any): void {
+    this.selectedResult = result;  // Set the selected result
   }
 
-  onMouseDown(event: MouseEvent, index: number): void {
-    this.dragIndex = index;
-    // Calculate the offset where the mouse clicked inside the popup
-    const popupElement = event.target as HTMLElement;
-    this.dragOffsetX = event.clientX - popupElement.getBoundingClientRect().left;
-    this.dragOffsetY = event.clientY - popupElement.getBoundingClientRect().top;
-
-    // Add event listeners to track the mouse drag
-    document.addEventListener('mousemove', this.onMouseMove);
-    document.addEventListener('mouseup', this.onMouseUp);
+  clearSearch(): void {
+    this.searchText = '';  // Clear the search text only
   }
 
-  onMouseMove = (event: MouseEvent): void => {
-    if (this.dragIndex !== null) {
-      this.dragOffsetX = event.clientX - this.dragOffsetX;
-      this.dragOffsetY = event.clientY - this.dragOffsetY;
-    }
-  };
-
-  onMouseUp = (): void => {
-    this.dragIndex = null;
-    document.removeEventListener('mousemove', this.onMouseMove);
-    document.removeEventListener('mouseup', this.onMouseUp);
-  };
-
-  closePopup(index: number): void {
-    this.searchResults.splice(index, 1);  // Remove the selected result
+  closeAllPopups(): void {
+    this.searchResults = [];  // Clear all search results
+    this.searchPerformed = false;  // Reset searchPerformed when closing results
+    this.selectedResult = null;  // Clear the selected result
   }
 }
 
