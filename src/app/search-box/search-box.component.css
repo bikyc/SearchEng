@@ -1,3 +1,39 @@
+.header-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header-top {
+    justify-content: center;
+}
+
+.header-left {
+    justify-content: flex-start;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.search-engine-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
 /* Centering the container horizontally and vertically */
 .center-container {
     display: flex;
@@ -5,7 +41,7 @@
     align-items: center;
     height: 100vh;
     background-color: #f0f0f0;
-    overflow-x: hidden; /* Disable horizontal scrolling */
+    width: 100%; /* Ensure the container takes full width */
 }
 
 /* Top container styles for after search is performed */
@@ -16,41 +52,43 @@
     height: auto;
     background-color: #f0f0f0;
     padding: 20px 0;
-    overflow-x: hidden; /* Disable horizontal scrolling */
+    width: 100%; /* Ensure the container takes full width */
 }
 
 /* Search container styles */
 .search-container {
     position: relative;
-    width: 100%;
+    width: 60%; /* Set a default width */
     display: flex; /* Ensure the input and button are on the same line */
     justify-content: center;
+    align-items: center;
 }
 
 /* Reduced search container styles */
 .search-container-small {
-    width: 60%;
+    width: 60%; /* Ensure the width is consistent */
 }
 
 /* Search input styles */
 .search-input {
     padding: 10px;
-    width: 400px;
-    height: 50px;
+    width: 900px;
+    height: 30px;
     border: 1px solid #ccc;
     border-radius: 25px 0 0 25px; /* Adjust border radius to match button */
     font-size: 16px;
+    flex: 1;
+}
+
+.search-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.25);
 }
 
 /* Reduced search input styles */
 .search-input-small {
     height: 30px;
     font-size: 14px;
-}
-
-.search-input:focus {
-    border-color: #007bff;
-    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.25);
 }
 
 /* Search button styles */
@@ -61,6 +99,10 @@
     color: white;
     border-radius: 0 25px 25px 0; /* Adjust border radius to match input */
     cursor: pointer;
+    height: 50px; /* Match the height of the search input */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Clear button styles */
@@ -70,38 +112,32 @@
     background-color: transparent;
     color: #007bff;
     cursor: pointer;
-    margin-left: -40px; /* Adjust position to overlap with input */
-    position: relative;
-    right: 40px; /* Adjust position to avoid overlapping with search button */
+    position: absolute; /* Change to absolute positioning */
+    right: 60px; /* Adjust position to avoid overlapping with search button */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Body background styling */
 body {
-    background: repeating-linear-gradient(
-      45deg,
-      #f0f0f0, 
-      #f0f0f0 10px,
-      #d1d1d1 10px,
-      #d1d1d1 20px
-    );
+    background-color: #f0f0f0;
     margin: 0;
     height: 100vh;
-    overflow-x: hidden; /* Disable horizontal scrolling */
 }
 
 /* Main content styles */
 .main-content {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-start;
     width: auto;
     padding: 20px;
-    overflow-x: hidden; /* Disable horizontal scrolling */
 }
 
 /* Results container styles */
 .results-container {
-    width: 60%;
+    flex: 2;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -118,7 +154,7 @@ body {
 /* Individual result item styles */
 .result-item {
     margin-bottom: 20px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
 }
 
@@ -135,19 +171,21 @@ body {
     margin: 5px 0;
 }
 
-.result-url {
-    color: #006621;
-    font-size: 14px;
+.result-item:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
 }
 
 .result-timestamp {
-    color: #999;
+    color: #888;
     font-size: 12px;
 }
 
 /* Preview container styles */
 .preview-container {
+    flex: 1;
     width: 35%;
+    height: fit-content;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -173,4 +211,21 @@ body {
 
 .preview-container a:hover {
     text-decoration: underline;
+}
+
+/* Additional styling for better UI */
+.search-form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.results-preview-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 100%;
+}
+.logo{
+    border-radius: 25px;
 }

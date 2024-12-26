@@ -1,33 +1,37 @@
+<div [ngClass]="{'header-container': true, 'header-top': !searchPerformed, 'header-left': searchPerformed}">
+    <img src="assets/logo.png" alt="Search Engine Logo" class="logo">
+    <h1 class="search-engine-name">W Search</h1>
+</div>
+
 <div [ngClass]="{'center-container': !searchPerformed, 'top-container': searchPerformed}">
     <form class="search-form" (ngSubmit)="performSearch($event)">
         <div [ngClass]="{'search-container': true, 'search-container-small': searchPerformed}">
             <input [(ngModel)]="searchText" name="searchText" [ngClass]="{'search-input': true, 'search-input-small': searchPerformed}" type="text" placeholder="Search..."
                 required />
+                <button type="button" class="clear-button" *ngIf="searchText" (click)="clearSearch()">
+                    <i class="fas fa-times"></i>
+                </button>
             <button type="submit" class="search-button">
                 <i class="fas fa-search"></i>
-            </button>
-            <button type="button" class="clear-button" *ngIf="searchText" (click)="clearSearch()">
-                <i class="fas fa-times"></i>
             </button>
         </div>
     </form>
 </div>
 
-<div class="main-content">
-    <!-- Search Results List -->
-    <div *ngIf="searchResults && searchResults.length > 0" class="results-container">
-        <p *ngIf="suggestion">Did you mean: <strong>{{ suggestion }}</strong>?</p>
-        <ul class="results-list">
-            <li *ngFor="let result of searchResults" class="result-item" (click)="showPreview(result)">
-                <h3><a href="javascript:void(0)">{{ result.title }}</a></h3>
-                <p [innerHTML]="result.snippet"></p>
-                <p class="result-timestamp"><small>Last updated: {{ result.timestamp | date }}</small></p>
-            </li>
-        </ul>
-    </div>
+<div class="main-content" *ngIf="searchResults.length > 0">
+    <div class="results-preview-container">
+        <!-- Search Results List -->
+        <div class="results-container">
+            <app-list-result-page *ngIf="searchResults && searchResults.length > 0" 
+                                  [results]="searchResults" 
+                                  [suggestion]="suggestion" 
+                                  (preview)="showPreview($event)">
+            </app-list-result-page>
+        </div>
 
-    <!-- Preview of the selected result -->
-    <div *ngIf="selectedResult" class="preview-container">
-        <app-preview [result]="selectedResult"></app-preview>
+        <!-- Preview of the selected result -->
+        <div class="preview-container" *ngIf="selectedResult">
+            <app-preview [result]="selectedResult"></app-preview>
+        </div>
     </div>
 </div>

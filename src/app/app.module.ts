@@ -9,19 +9,21 @@ import { SearchBoxService } from './Services/Searchbox.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ListResultPageComponent } from './list-result-page/list-result-page.component';
 import { PreviewComponent } from './preview/preview.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchBoxComponent,
     ListResultPageComponent,
-    PreviewComponent
+    PreviewComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPaginationModule
   ],
   providers: [SearchBoxComponent,SearchBoxService],
   bootstrap: [AppComponent]

@@ -1,11 +1,20 @@
-<div *ngIf="searchResults.length">
-    <h2>Search Results</h2>
-    <ul>
-        <li *ngFor="let result of searchResults">
-            <a [href]="'https://en.wikipedia.org/wiki/' + result.title" target="_blank">
-                {{ result.title }}
-            </a>
+<div class="results-container">
+    <p *ngIf="suggestion">Did you mean: <strong>{{ suggestion }}</strong>?</p>
+    <ul class="results-list">
+        <li *ngFor="let result of results | paginate: { itemsPerPage: 20, currentPage: currentPage }" class="result-item">
+            <h3>
+                <a href="javascript:void(0)" (click)="preview.emit(result)">{{ result.title }}</a>
+                <a 
+                    [href]="result.pageUrl" 
+                    target="_blank" 
+                    class="external-link" 
+                    [title]="result.pageUrl">
+                    <i class="fas fa-external-link-alt" (click)="openInNewTab(result.pageUrl)"></i>
+                </a>
+            </h3>
             <p [innerHTML]="result.snippet"></p>
+            <p class="result-timestamp"><small>Last updated: {{ result.timestamp | date }}</small></p>
         </li>
     </ul>
+    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
 </div>

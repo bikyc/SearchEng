@@ -1,0 +1,70 @@
+.results-list {
+    list-style: none; /* Remove bullets */
+    padding: 0;
+    margin: 0;
+}
+
+.result-item {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd; /* Add border at the bottom */
+    padding-bottom: 10px;
+}
+
+.result-item:last-child {
+    border-bottom: none; /* Remove border for the last item */
+}
+
+.result-item h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.result-item p {
+    margin: 5px 0;
+}
+
+/* Remove background color change on hover */
+.result-item:hover {
+    cursor: pointer;
+}
+
+.result-timestamp {
+    color: #888;
+    font-size: 12px;
+}
+
+.external-link {
+    margin-left: 10px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.external-link:hover {
+    color: #0056b3;
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination-controls button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.pagination-controls button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.pagination-controls span {
+    font-size: 16px;
+}

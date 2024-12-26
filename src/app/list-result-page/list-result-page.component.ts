@@ -1,19 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { SearchBoxService } from '../Services/Searchbox.service';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-list-results',
+  selector: 'app-list-result-page',
   templateUrl: './list-result-page.component.html',
   styleUrls: ['./list-result-page.component.css']
 })
-export class ListResultPageComponent implements OnInit {
-  searchResults: any[] = [];
+export class ListResultPageComponent {
+  @Input() results!: any[];
+  @Input() suggestion!: string;
+  @Output() preview = new EventEmitter<any>();
 
-  constructor(private _searchBoxService: SearchBoxService) {}
+  currentPage: number = 1;
 
-  ngOnInit(): void {
-    // this._searchBoxService.getResults().subscribe((results) => {
-    //   this.searchResults = results;
-    // });
+  openInNewTab(url: string): void {
+    window.open(url, '_blank'); // Open the link in a new tab
   }
 }
